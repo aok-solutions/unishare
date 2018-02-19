@@ -1,0 +1,42 @@
+<%= form_with(model: ride, local: true) do |form| %>
+  <% if ride.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ride.errors.count, "error") %> prohibited this ride from being saved:</h2>
+
+      <ul>
+      <% ride.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :seats %>
+    <%= form.number_field :seats, id: :ride_seats %>
+  </div>
+
+  <div class="field">
+    <%= form.label :destination %>
+    <%= form.text_field :destination, id: :ride_destination %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pickup %>
+    <%= form.text_field :pickup, id: :ride_pickup %>
+  </div>
+
+  <div class="field">
+    <%= form.label :departure %>
+    <%= form.datetime_select :departure, id: :ride_departure %>
+  </div>
+
+  <div class="field">
+    <%= form.label :arrival %>
+    <%= form.datetime_select :arrival, id: :ride_arrival %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
