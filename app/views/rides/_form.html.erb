@@ -11,6 +11,12 @@
     </div>
   <% end %>
 
+  <div>
+    <strong>Driver:</strong>
+    <%= @user.name %>
+  </div>
+  <br/>
+
   <div class="field">
     <%= form.label :seats %>
     <%= form.number_field :seats, id: :ride_seats %>
@@ -34,6 +40,11 @@
   <div class="field">
     <%= form.label :arrival %>
     <%= form.datetime_select :arrival, id: :ride_arrival %>
+  </div>
+
+  <div class="field" id="ride-user-id">
+    <%= form.label :user %>
+    <%= form.number_field :user_id, id: :ride_user %>
   </div>
 
   <div class="actions">

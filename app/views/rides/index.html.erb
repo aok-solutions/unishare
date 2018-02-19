@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th>Driver</th>
       <th>Seats</th>
       <th>Destination</th>
       <th>Pickup</th>
@@ -17,14 +18,17 @@
   <tbody>
     <% @rides.each do |ride| %>
       <tr>
+        <td><%= ride.user.name %></td>
         <td><%= ride.seats %></td>
         <td><%= ride.destination %></td>
         <td><%= ride.pickup %></td>
         <td><%= ride.departure %></td>
         <td><%= ride.arrival %></td>
-        <td><%= link_to 'Show', ride %></td>
-        <td><%= link_to 'Edit', edit_ride_path(ride) %></td>
-        <td><%= link_to 'Destroy', ride, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'View Ride', ride %></td>
+        <% if current_user == ride.user %>
+          <td><%= link_to 'Edit', edit_ride_path(ride) %></td>
+          <td><%= link_to 'Destroy', ride, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -14,11 +14,16 @@ class RidesController < ApplicationController
 
   # GET /rides/new
   def new
-    @ride = Ride.new
+    @user = current_user
+    unless @user.drivers_license.present?
+      redirect_to rides_path, notice: 'You need a drivers license to create a ride!'
+    end
+    @ride = Ride.new user_id: @user.id
   end
 
   # GET /rides/1/edit
   def edit
+    @user = @ride.user
   end
 
   # POST /rides
@@ -69,6 +74,6 @@ class RidesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ride_params
-      params.require(:ride).permit(:seats, :destination, :pickup, :departure, :arrival)
+      params.require(:ride).permit(:user_id, :seats, :destination, :pickup, :departure, :arrival)
     end
 end
