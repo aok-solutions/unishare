@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th>Driver</th>
-      <th>Seats</th>
+      <th>Available Seats</th>
       <th>Destination</th>
       <th>Pickup</th>
       <th>Departure</th>
@@ -19,12 +19,15 @@
     <% @rides.each do |ride| %>
       <tr>
         <td><%= ride.user.name %></td>
-        <td><%= ride.seats %></td>
+        <td><%= ride.available_seats > 0 ? ride.available_seats : "FULL" %></td>
         <td><%= ride.destination %></td>
         <td><%= ride.pickup %></td>
         <td><%= ride.departure %></td>
         <td><%= ride.arrival %></td>
         <td><%= link_to 'View Ride', ride %></td>
+        <% if user_signed_in? and current_user != ride.user and !ride.users.include?(current_user) and ride.available_seats > 0 %>
+          <td><%= link_to 'Join Ride', join_ride_path(ride), method: :post %></td>
+        <% end %>
         <% if current_user == ride.user %>
           <td><%= link_to 'Edit', edit_ride_path(ride) %></td>
           <td><%= link_to 'Destroy', ride, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -35,5 +38,6 @@
 </table>
 
 <br>
-
-<%= link_to 'New Ride', new_ride_path %>
+<% if user_signed_in? and current_user.drivers_license.present? %>
+  <%= link_to 'New Ride', new_ride_path %>
+<% end %>

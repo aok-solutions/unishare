@@ -1,8 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Seats:</strong>
-  <%= @ride.seats %>
+  <strong>Driver:</strong>
+  <%= @ride.user.name %>
+</p>
+
+<p>
+  <strong>Seats Available:</strong>
+  <%= @ride.available_seats > 0 ? @ride.available_seats : "FULL" %>
 </p>
 
 <p>
@@ -24,6 +29,28 @@
   <strong>Arrival:</strong>
   <%= @ride.arrival %>
 </p>
+<br />
+
+<h3>Riders</h3>
+<table>
+  <thead>
+  <tr>
+    <th>Rider</th>
+    <th>Email</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @ride.users.each do |user| %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
 
 <%= link_to 'Edit', edit_ride_path(@ride) %> |
 <%= link_to 'Back', rides_path %>

@@ -19,6 +19,37 @@
     <%= @user.drivers_license %>
   </p>
 <% end %>
+<br />
 
+<% if @user.rides.count > 0 %>
+  <h3>My Rides</h3>
+  <table>
+    <thead>
+    <tr>
+      <th>Driver</th>
+      <th>Available Seats</th>
+      <th>Destination</th>
+      <th>Pickup</th>
+      <th>Departure</th>
+      <th>Arrival</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @user.rides.each do |ride| %>
+      <tr>
+        <td><%= ride.user.name %></td>
+        <td><%= ride.available_seats > 0 ? ride.available_seats : "FULL" %></td>
+        <td><%= ride.destination %></td>
+        <td><%= ride.pickup %></td>
+        <td><%= ride.departure %></td>
+        <td><%= ride.arrival %></td>
+        <td><%= link_to 'View Ride', ride %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <%= link_to 'Back to Rides', rides_path %>

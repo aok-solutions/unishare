@@ -66,6 +66,18 @@ class RidesController < ApplicationController
     end
   end
 
+  def join_ride
+    @ride = Ride.find(params[:ride])
+
+    if @ride.available_seats > 0
+      @ride.users << current_user
+    else
+      redirect_to rides_path, notice: 'This ride is already full'
+    end
+
+    redirect_to @ride, notice: 'You have successfully joined this ride'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ride
